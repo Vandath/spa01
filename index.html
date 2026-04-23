@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thùy Trâm Spa - Chăm sóc sắc đẹp & Thư giãn</title>
+    
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌸</text></svg>">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* ================= BIẾN MÀU SẮC ĐỒNG BỘ ADMIN ================= */
+        :root {
+            --primary: #C5A880; /* Rose Gold */
+            --primary-hover: #b3956d;
+            --bg-color: #F9F7F5; /* Soft beige */
+            --card-bg: #FFFFFF;
+            --text-main: #2C3E50;
+            --text-muted: #7F8C8D;
+            --shadow-soft: 0 10px 40px rgba(0, 0, 0, 0.04);
+            --shadow-hover: 0 15px 50px rgba(197, 168, 128, 0.15);
+            --radius-lg: 24px;
+            --radius-md: 16px;
+            --radius-sm: 10px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Quicksand', sans-serif; background-color: var(--card-bg); color: var(--text-main); line-height: 1.6; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        h1, h2, h3, h4 { font-weight: 700; color: var(--text-main); }
+        a { text-decoration: none; color: inherit; transition: 0.3s; }
+        li { list-style: none; }
+
+        /* ================= NAVBAR ================= */
+        .navbar {
+            position: fixed; top: 0; width: 100%; background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px); z-index: 1000; transition: 0.3s;
+            border-bottom: 1px solid rgba(197, 168, 128, 0.1);
+        }
+        .navbar.scrolled { box-shadow: var(--shadow-soft); padding: 5px 0; }
+        .nav-container { display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; max-width: 1200px; margin: 0 auto; }
+        .logo { font-size: 1.5rem; font-weight: 700; color: var(--primary); display: flex; align-items: center; gap: 10px; }
+        .logo i { background: #FCF9F5; padding: 10px; border-radius: 50%; }
+        .nav-menu { display: flex; gap: 2rem; }
+        .nav-menu a { font-weight: 600; color: var(--text-main); font-size: 1rem; }
+        .nav-menu a:hover { color: var(--primary); }
+        .hamburger { display: none; cursor: pointer; flex-direction: column; gap: 5px; }
+        .hamburger span { width: 25px; height: 3px; background: var(--text-main); transition: 0.3s; border-radius: 3px; }
+
+        /* ================= HERO SECTION ================= */
+        .hero {
+            height: 100vh; min-height: 600px;
+            background: linear-gradient(rgba(44, 62, 80, 0.7), rgba(44, 62, 80, 0.4)), url('https://images.unsplash.com/photo-1540555700478-4be289fbecef?q=80&w=2070&auto=format&fit=crop') center/cover;
+            display: flex; align-items: center; justify-content: center; text-align: center; color: white; padding: 0 20px;
+        }
+        .hero-content h1 { font-size: 3.5rem; margin-bottom: 1rem; color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
+        .hero-content p { font-size: 1.2rem; margin-bottom: 2.5rem; font-weight: 500; }
+        .cta-btn, .submit-btn {
+            background: var(--primary); color: white; padding: 1rem 2.5rem; border: none;
+            border-radius: 50px; font-size: 1.1rem; font-weight: 700; cursor: pointer;
+            transition: all 0.3s ease; font-family: inherit; box-shadow: 0 10px 20px rgba(197, 168, 128, 0.3);
+        }
+        .cta-btn:hover, .submit-btn:hover { background: var(--primary-hover); transform: translateY(-3px); box-shadow: var(--shadow-hover); }
+
+        /* ================= CHUNG CHO CÁC SECTION ================= */
+        section { padding: 5rem 0; }
+        .section-title { text-align: center; font-size: 2.2rem; margin-bottom: 3rem; position: relative; padding-bottom: 15px; }
+        .section-title::after {
+            content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+            width: 80px; height: 3px; background: var(--primary); border-radius: 5px;
+        }
+
+        /* ================= SERVICES ================= */
+        .services { background-color: var(--bg-color); }
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+        .service-card {
+            background: var(--card-bg); padding: 2.5rem; border-radius: var(--radius-lg);
+            text-align: center; transition: all 0.3s ease; box-shadow: var(--shadow-soft);
+            border: 1px solid rgba(197, 168, 128, 0.1);
+        }
+        .service-card:hover { transform: translateY(-10px); box-shadow: var(--shadow-hover); border-color: rgba(197, 168, 128, 0.3); }
+        .service-icon {
+            width: 80px; height: 80px; background: #FCF9F5; color: var(--primary); font-size: 2.5rem;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem;
+        }
+        .service-card h3 { font-size: 1.5rem; margin-bottom: 1rem; }
+        .service-card p { color: var(--text-muted); margin-bottom: 1.5rem; font-size: 0.95rem; }
+        .service-list { text-align: left; color: var(--text-muted); font-size: 0.95rem; }
+        .service-list li { margin-bottom: 10px; display: flex; align-items: center; gap: 10px; }
+        .service-list i { color: var(--primary); font-size: 0.8rem; }
+
+        /* ================= ABOUT ================= */
+        .about-content { background: var(--card-bg); border-radius: var(--radius-lg); padding: 3rem; box-shadow: var(--shadow-soft); border: 1px solid #F0EAE1; }
+        .about-text h3 { color: var(--primary); font-size: 1.5rem; margin-bottom: 1rem; text-align: center; }
+        .about-text > p { text-align: center; color: var(--text-muted); margin-bottom: 2rem; font-size: 1.05rem; }
+        .services-highlight { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2rem; }
+        .highlight-item { background: #FCF9F5; padding: 1.5rem; border-radius: var(--radius-md); border-left: 4px solid var(--primary); }
+        .highlight-item h4 { margin-bottom: 10px; color: var(--text-main); }
+        .highlight-item p { color: var(--text-muted); font-size: 0.95rem; }
+        .cta-info { background: #F9F7F5; padding: 1.5rem; border-radius: var(--radius-md); text-align: center; margin-top: 2rem; }
+        .cta-info p { margin-bottom: 5px; color: var(--text-main); font-weight: 500; }
+        .features { display: flex; justify-content: space-around; flex-wrap: wrap; gap: 2rem; margin-top: 3rem; border-top: 1px solid #F0F0F0; padding-top: 3rem; text-align: center; }
+        .feature i { font-size: 2.5rem; color: var(--primary); margin-bottom: 1rem; }
+        .feature h4 { margin-bottom: 0.5rem; }
+        .feature p { color: var(--text-muted); font-size: 0.9rem; }
+
+        /* ================= GALLERY ================= */
+        .gallery { background-color: var(--bg-color); }
+        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1.5rem; }
+        .gallery-item { position: relative; border-radius: var(--radius-md); overflow: hidden; aspect-ratio: 1; cursor: pointer; box-shadow: var(--shadow-soft); }
+        .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
+        .gallery-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(197, 168, 128, 0.85);
+            display: flex; align-items: center; justify-content: center; opacity: 0; transition: 0.3s;
+        }
+        .gallery-overlay p { color: white; font-weight: 700; font-size: 1.2rem; transform: translateY(20px); transition: 0.3s; }
+        .gallery-item:hover img { transform: scale(1.1); }
+        .gallery-item:hover .gallery-overlay { opacity: 1; }
+        .gallery-item:hover .gallery-overlay p { transform: translateY(0); }
+
+        /* ================= CONTACT ================= */
+        .contact-content { display: grid; grid-template-columns: 3fr 2fr; gap: 3rem; }
+        .contact-form, .contact-info { background: var(--card-bg); padding: 3rem; border-radius: var(--radius-lg); box-shadow: var(--shadow-soft); border: 1px solid rgba(197, 168, 128, 0.1); }
+        .contact-form h3, .contact-info h3 { margin-bottom: 2rem; font-size: 1.5rem; color: var(--primary); }
+        
+        .contact-form input, .contact-form textarea {
+            width: 100%; padding: 1rem 1.5rem; margin-bottom: 1.5rem; border: 1px solid #E0E0E0;
+            border-radius: var(--radius-sm); font-family: inherit; font-size: 1rem; background: #FAFAFA; transition: 0.3s;
+        }
+        .contact-form input { border-radius: 50px; }
+        .contact-form input:focus, .contact-form textarea:focus { outline: none; border-color: var(--primary); background: white; box-shadow: 0 0 0 4px rgba(197, 168, 128, 0.1); }
+        
+        .info-item { display: flex; gap: 1.5rem; margin-bottom: 2rem; }
+        .info-item i { width: 50px; height: 50px; background: #FCF9F5; color: var(--primary); font-size: 1.2rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .info-item h4 { margin-bottom: 5px; }
+        .info-item p { color: var(--text-muted); }
+
+        /* ================= FOOTER ================= */
+        .footer { background: #2C3E50; color: white; text-align: center; padding: 3rem 0; }
+        .footer p { color: #A0AEC0; margin-bottom: 1.5rem; }
+        .social-links a {
+            display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px;
+            background: rgba(255,255,255,0.1); color: white; border-radius: 50%; margin: 0 10px; transition: 0.3s;
+        }
+        .social-links a:hover { background: var(--primary); transform: translateY(-3px); }
+
+        /* THÔNG BÁO */
+        .alert-message {
+            display: none; padding: 15px; border-radius: 10px; margin-bottom: 20px; font-weight: 600; text-align: center;
+        }
+        .alert-success { background: var(--success-bg); color: var(--success-text); border: 1px solid #C8E6C9; }
+        .alert-error { background: var(--danger-bg); color: var(--danger-text); border: 1px solid #FFCDD2; }
+
+        /* ================= RESPONSIVE ================= */
+        @media (max-width: 768px) {
+            .nav-menu {
+                position: absolute; top: 100%; left: -100%; width: 100%; background: white;
+                flex-direction: column; text-align: center; padding: 2rem 0; box-shadow: 0 10px 20px rgba(0,0,0,0.1); transition: 0.3s;
+            }
+            .nav-menu.active { left: 0; }
+            .hamburger { display: flex; }
+            .hero-content h1 { font-size: 2.5rem; }
+            .contact-content { grid-template-columns: 1fr; }
+            .services-highlight { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fas fa-spa"></i>
+                <span>Thùy Trâm Spa</span>
+            </div>
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="#home">Trang chủ</a></li>
+                <li><a href="#services">Dịch vụ</a></li>
+                <li><a href="#gallery">Thư Viện</a></li>
+                <li><a href="#about">Giới thiệu</a></li>
+                <li><a href="#contact">Liên hệ</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+    </nav>
+
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Chút Thư Giãn, Trọn Sắc Đẹp</h1>
+            <p>Khơi dậy vẻ đẹp tự nhiên và tái tạo năng lượng từ sâu bên trong</p>
+            <button class="cta-btn" onclick="document.getElementById('contact').scrollIntoView({behavior: 'smooth'})">Đặt Lịch Ngay</button>
+        </div>
+    </section>
+
+    <section id="services" class="services">
+        <div class="container">
+            <h2 class="section-title">Dịch Vụ Nổi Bật</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon"><i class="fas fa-leaf"></i></div>
+                    <h3>Gội Đầu Dưỡng Sinh</h3>
+                    <p>Làm sạch sâu da đầu kết hợp massage ấn huyệt, xua tan mệt mỏi và kích thích tuần hoàn máu hiệu quả.</p>
+                    <ul class="service-list">
+                        <li><i class="fas fa-check"></i> Gội đầu thảo dược tự nhiên</li>
+                        <li><i class="fas fa-check"></i> Massage cổ vai gáy</li>
+                        <li><i class="fas fa-check"></i> Tẩy tế bào chết da đầu</li>
+                        <li><i class="fas fa-check"></i> Sấy tạo kiểu nhẹ nhàng</li>
+                    </ul>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon"><i class="fas fa-magic"></i></div>
+                    <h3>Chăm Sóc Nails</h3>
+                    <p>Thiết kế móng tỉ mỉ với đa dạng phong cách. Đảm bảo an toàn vệ sinh và sử dụng sơn gel cao cấp siêu bền.</p>
+                    <ul class="service-list">
+                        <li><i class="fas fa-check"></i> Cắt da, sửa form móng</li>
+                        <li><i class="fas fa-check"></i> Sơn Gel Hàn Quốc cao cấp</li>
+                        <li><i class="fas fa-check"></i> Design Nail Art theo yêu cầu</li>
+                        <li><i class="fas fa-check"></i> Đắp bột / Đắp gel nối móng</li>
+                    </ul>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon"><i class="fas fa-hands-bubbles"></i></div>
+                    <h3>Massage Thư Giãn</h3>
+                    <p>Thả lỏng toàn bộ cơ thể với kỹ thuật massage chuyên sâu, giúp giảm đau nhức và cải thiện giấc ngủ.</p>
+                    <ul class="service-list">
+                        <li><i class="fas fa-check"></i> Massage Body tinh dầu</li>
+                        <li><i class="fas fa-check"></i> Chườm đá nóng đả thông kinh lạc</li>
+                        <li><i class="fas fa-check"></i> Massage chân thư giãn</li>
+                        <li><i class="fas fa-check"></i> Trị liệu đau nhức cơ bắp</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="about">
+        <div class="container">
+            <h2 class="section-title">Về Chúng Tôi</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>✨ Nơi Để Bạn Yêu Chiều Bản Thân ✨</h3>
+                    <p>Bạn đang tìm kiếm một khoảng trời bình yên để trút bỏ áp lực công việc? Hãy ghé Thùy Trâm Spa – nơi không gian tĩnh lặng hòa quyện cùng hương tinh dầu dịu nhẹ, sẵn sàng nâng niu cơ thể và tinh thần bạn.</p>
+                    
+                    <div class="services-highlight">
+                        <div class="highlight-item">
+                            <h4><i class="fas fa-heart" style="color:var(--primary)"></i> Không gian ấm cúng</h4>
+                            <p>Thiết kế riêng tư, âm nhạc du dương giúp bạn thư giãn tuyệt đối ngay khi bước vào.</p>
+                        </div>
+                        <div class="highlight-item">
+                            <h4><i class="fas fa-gem" style="color:var(--primary)"></i> Sản phẩm an toàn</h4>
+                            <p>Cam kết sử dụng mỹ phẩm, thảo dược có nguồn gốc rõ ràng, lành tính cho mọi loại da.</p>
+                        </div>
+                    </div>
+
+                    <div class="cta-info">
+                        <p>📍 Ghé ngay Thùy Trâm Spa để tự thưởng cho mình một buổi làm đẹp xứng đáng.</p>
+                    </div>
+                </div>
+
+                <div class="features">
+                    <div class="feature">
+                        <i class="fas fa-user-tie"></i>
+                        <h4>Kỹ Thuật Viên Giỏi</h4>
+                        <p>Giàu kinh nghiệm, tận tâm</p>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-spray-can"></i>
+                        <h4>Vệ Sinh Tuyệt Đối</h4>
+                        <p>Dụng cụ vô trùng 100%</p>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-smile-beam"></i>
+                        <h4>Giá Cả Minh Bạch</h4>
+                        <p>Không phát sinh phụ phí</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="gallery" class="gallery">
+        <div class="container">
+            <h2 class="section-title">Không Gian & Trải Nghiệm</h2>
+            <div class="gallery-grid">
+                <div class="gallery-item"><img src="https://i.ibb.co/V0RvLS2C/image.png" alt="Spa Service"><div class="gallery-overlay"><p>Chăm Sóc Tận Tâm</p></div></div>
+                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?w=400&h=400&fit=crop" alt="Nail Service"><div class="gallery-overlay"><p>Nail Art Tinh Tế</p></div></div>
+                <div class="gallery-item"><img src="https://i.ibb.co/pjSC3jvj/image.png" alt="Spa Environment"><div class="gallery-overlay"><p>Không Gian Thư Giãn</p></div></div>
+                <div class="gallery-item"><img src="https://i.ibb.co/ZRCfrzx9/image.png" alt="Nail Design"><div class="gallery-overlay"><p>Góc Làm Đẹp</p></div></div>
+                <div class="gallery-item"><img src="https://i.ibb.co/rfm9xg3N/image.png" alt="Hair Treatment"><div class="gallery-overlay"><p>Dưỡng Sinh Da Đầu</p></div></div>
+                <div class="gallery-item"><img src="https://i.ibb.co/LhkXkNpd/image.png" alt="Relaxation Room"><div class="gallery-overlay"><p>Khu Vực Massage</p></div></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title">Đặt Lịch Hẹn</h2>
+            <div class="contact-content">
+                <div class="contact-form">
+                    <h3>Gửi Yêu Cầu Cho Spa</h3>
+                    <div id="formAlert" class="alert-message"></div>
+                    
+                    <form id="bookingForm">
+                        <input type="text" id="cusName" placeholder="Tên của bạn *" required>
+                        <input type="tel" id="cusPhone" placeholder="Số điện thoại *" required>
+                        <input type="email" id="cusEmail" placeholder="Email (Không bắt buộc)">
+                        <textarea id="cusMessage" placeholder="Bạn muốn sử dụng dịch vụ gì? Hoặc ghi chú giờ hẹn..." rows="4" required></textarea>
+                        <button type="submit" class="submit-btn" id="submitBtn">Xác Nhận Đặt Lịch</button>
+                    </form>
+                </div>
+
+                <div class="contact-info">
+                    <h3>Thông Tin Liên Hệ</h3>
+                    <div class="info-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h4>Địa Chỉ</h4>
+                            <p>Số 15 Mỹ Đa Đông 5, Ngũ Hành Sơn, Đà Nẵng</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <h4>Hotline / Zalo</h4>
+                            <p>0865.428.575</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-clock"></i>
+                        <div>
+                            <h4>Giờ Mở Cửa</h4>
+                            <p>Tất cả các ngày: 9:00 AM - 10:00 PM</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 Thùy Trâm Spa & Nails. Tất cả quyền được bảo lưu.</p>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-tiktok"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 1. Xử lý Navbar khi cuộn trang
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) navbar.classList.add('scrolled');
+            else navbar.classList.remove('scrolled');
+        });
+
+        // 2. Xử lý Menu Mobile (Hamburger)
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('nav-menu');
+        hamburger.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+        document.querySelectorAll('.nav-menu a').forEach(link => {
+            link.addEventListener('click', () => { navMenu.classList.remove('active'); });
+        });
+
+        // 3. XỬ LÝ GỬI FORM LÊN BACKEND MONGODB
+        const bookingForm = document.getElementById('bookingForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const formAlert = document.getElementById('formAlert');
+
+        bookingForm.addEventListener('submit', async (e) => {
+            e.preventDefault(); // Chặn việc tải lại trang
+            
+            // Lấy dữ liệu từ ô input
+            const orderData = {
+                name: document.getElementById('cusName').value,
+                phone: document.getElementById('cusPhone').value,
+                email: document.getElementById('cusEmail').value,
+                message: document.getElementById('cusMessage').value
+            };
+
+            // Vô hiệu hóa nút bấm trong lúc gửi
+            submitBtn.textContent = 'Đang gửi...';
+            submitBtn.disabled = true;
+
+            try {
+                // Đổi link này nếu bạn deploy Backend lên host khác (ví dụ render.com)
+                const response = await fetch('http://localhost:5000/api/orders', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(orderData)
+                });
+
+                if (response.ok) {
+                    // Thành công
+                    formAlert.className = 'alert-message alert-success';
+                    formAlert.textContent = '🎉 Đặt lịch thành công! Spa sẽ sớm liên hệ lại với bạn.';
+                    formAlert.style.display = 'block';
+                    bookingForm.reset(); // Xóa trắng form
+                } else {
+                    throw new Error('Lỗi từ server');
+                }
+            } catch (error) {
+                // Thất bại
+                formAlert.className = 'alert-message alert-error';
+                formAlert.textContent = '❌ Có lỗi xảy ra. Không thể kết nối tới hệ thống, vui lòng gọi Hotline!';
+                formAlert.style.display = 'block';
+            } finally {
+                // Khôi phục nút bấm
+                submitBtn.textContent = 'Xác Nhận Đặt Lịch';
+                submitBtn.disabled = false;
+                
+                // Ẩn thông báo sau 5 giây
+                setTimeout(() => { formAlert.style.display = 'none'; }, 5000);
+            }
+        });
+    </script>
+</body>
+</html>
